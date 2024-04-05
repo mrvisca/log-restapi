@@ -62,6 +62,7 @@ func DetailOffice(c *gin.Context) {
 func PostOffice(c *gin.Context) {
 	var olditem models.Office
 	name := c.PostForm("name")
+	userid := uint(c.MustGet("jwt_user_id").(float64))
 	if !config.DB.First(&olditem, "name = ?", name).RecordNotFound() {
 		c.JSON(400, gin.H{
 			"status":  "Elor",
@@ -72,7 +73,7 @@ func PostOffice(c *gin.Context) {
 		tanggal := time.Now()
 
 		item := models.Office{
-			UserId: 0,
+			UserId: userid,
 			Name:   c.PostForm("name"),
 			Email:  c.PostForm("email"),
 			Alamat: c.PostForm("alamat"),

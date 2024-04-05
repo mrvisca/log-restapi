@@ -5,7 +5,7 @@ import "github.com/jinzhu/gorm"
 type Office struct {
 	gorm.Model
 	LogActs []LogAct
-	User    User `gorm:"foreignKey:UserId"`
+	User    User `gorm:"foreignkey:UserId"`
 	UserId  uint
 	Name    string
 	Email   string `gorm:"unique;not null"`

@@ -29,6 +29,12 @@ func main() {
 			kantor.PUT("update/:id", middleware.IsAuth(), routes.UpdateOffice)
 			kantor.DELETE("hapus/:id", middleware.IsAuth(), routes.DeleteOffice)
 		}
+
+		halog := v1.Group("page-log/")
+		{
+			halog.GET("/:officeid", middleware.IsAuth(), routes.Getlog)
+			halog.POST("/add", middleware.IsAuth(), routes.PostLog)
+		}
 	}
 
 	router.Run()
