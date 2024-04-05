@@ -11,6 +11,7 @@ type User struct {
 	Email    string `gorm:"unique;not null"`
 	SocialId string
 	Provider string
+	Avatar   string
 	Role     bool `gorm:"default:0"`
 	Phone    string
 	Limit    uint

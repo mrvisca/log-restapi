@@ -8,8 +8,17 @@ type Office struct {
 	User    User `gorm:"foreignKey:UserId"`
 	UserId  uint
 	Name    string
-	Email   string
+	Email   string `gorm:"unique;not null"`
 	Alamat  string
 	Telpon  string
 	Join    string
+}
+
+type Doffice struct {
+	ID     uint   `json:"id"`
+	Name   string `json:"name"`
+	Email  string `json:"email"`
+	Alamat string `json:"alamat"`
+	Telpon string `json:"Telpon"`
+	Join   string `json:"join"`
 }
