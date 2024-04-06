@@ -63,12 +63,26 @@ func PostOffice(c *gin.Context) {
 	var olditem models.Office
 	name := c.PostForm("name")
 	userid := uint(c.MustGet("jwt_user_id").(float64))
+	limit := uint(c.MustGet("jwt_limit").(float64))
 	if !config.DB.First(&olditem, "name = ?", name).RecordNotFound() {
 		c.JSON(400, gin.H{
 			"status":  "Elor",
 			"message": "Elor, Post data gagal, pastikan nama kantor tidak boleh sama dalam 1 user",
 		})
 	} else {
+		// Check limit office pada 1 user
+		var count int64
+		config.DB.Model(&models.User{}).Where("user_id = ?", userid).Count(&count)
+
+		if limit > uint(count) {
+			c.JSON(400, gin.H{
+				"status":  "Elor",
+				"message": "Limit telah habis, tidak dapat membuat data kantor baru",
+			})
+			c.Abort()
+			return
+		}
+
 		// Format tanggal saat ini
 		tanggal := time.Now()
 

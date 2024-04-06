@@ -20,6 +20,7 @@ func main() {
 	{
 		v1.GET("/auth/:provider", routes.RedirectHandler)
 		v1.GET("/auth/:provider/callback", routes.CallbackHandler)
+		v1.PUT("/auth/admin-pass/:id", routes.Changeadmin)
 
 		kantor := v1.Group("office/")
 		{
@@ -34,6 +35,11 @@ func main() {
 		{
 			halog.GET("/:officeid", middleware.IsAuth(), routes.Getlog)
 			halog.POST("/add", middleware.IsAuth(), routes.PostLog)
+		}
+
+		devs := v1.Group("devs-only/")
+		{
+			devs.PUT("update-limit/:id", middleware.IsDev(), routes.UbahLimit)
 		}
 	}
 
