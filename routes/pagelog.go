@@ -39,7 +39,7 @@ func Getlog(c *gin.Context) {
 	valoff, _ := strconv.Atoi(id)
 	if valoff == 0 {
 		config.DB.Where("user_id = ?", userid).Preload("Office", func(db *gorm.DB) *gorm.DB {
-			return db.Order("office.name")
+			return db.Order("name")
 		}).Find(&items)
 
 		list := []models.Dlogact{}
@@ -54,7 +54,7 @@ func Getlog(c *gin.Context) {
 		})
 	} else {
 		config.DB.Where("user_id = ?", userid).Preload("Office", "id = ?", valoff, func(db *gorm.DB) *gorm.DB {
-			return db.Order("office.name")
+			return db.Order("name")
 		}).Find(&items)
 
 		list := []models.Dlogact{}
