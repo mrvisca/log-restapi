@@ -40,6 +40,7 @@ func main() {
 		devs := v1.Group("devs-only/")
 		{
 			devs.PUT("update-limit/:id", middleware.IsDev(), routes.UbahLimit)
+			devs.DELETE("hapus-akun/:id", middleware.IsDev(), routes.HapusAkun)
 		}
 	}
 

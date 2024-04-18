@@ -69,3 +69,30 @@ func UbahLimit(c *gin.Context) {
 		})
 	}
 }
+
+func HapusAkun(c *gin.Context) {
+	id := c.Param("id")
+	is_mimin := bool(c.MustGet("jwt_is_mimin").(bool))
+	var user models.User
+	var office models.Office
+	var log models.LogAct
+
+	// Akses hanya diperuntukan admin saja, bukan akses public
+	if !is_mimin {
+		c.JSON(400, gin.H{
+			"status":  "Elor",
+			"message": "Akses tidak dikenali, anda tidak memiliki akses ini.",
+		})
+		c.Abort()
+		return
+	}
+
+	config.DB.Where("id = ?", id).Delete(&user)
+	config.DB.Where("user_id = ?", id).Delete(&office)
+	config.DB.Where("user_id = ?", id).Delete(&log)
+
+	c.JSON(200, gin.H{
+		"status":  "Berhasil hapus data akun",
+		"message": "Berhasil menghapus data akun pengguna keseluruhan",
+	})
+}

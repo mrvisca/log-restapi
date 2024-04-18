@@ -140,9 +140,10 @@ func UpdateOffice(c *gin.Context) {
 
 func DeleteOffice(c *gin.Context) {
 	id := c.Param("id")
+	userid := uint(c.MustGet("jwt_user_id").(float64))
 	var office models.Office
 
-	config.DB.Where("id = ?", id).Delete(&office)
+	config.DB.Where("id = ?", id).Where("user_id = ?", userid).Delete(&office)
 
 	c.JSON(201, gin.H{
 		"status":  "Berhasil hapus data!",
