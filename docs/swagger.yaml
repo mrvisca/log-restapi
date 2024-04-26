@@ -1,0 +1,31 @@
+basePath: /api/v1/
+host: localhost:8080
+info:
+  contact:
+    email: bimaputra@mrvisca.tech
+    name: API Support (Mr.Visca)
+    url: https://resume.mrvisca.tech
+  description: Dokumentasi Layanan API untuk monitor log aktivitas
+  termsOfService: http://swagger.io/terms/
+  title: Service API Documentation
+  version: "1.0"
+paths:
+  /auth/github:
+    get:
+      description: Redirect ke halaman github.com / google.com untuk autentitakasi
+        dengan akun github / google
+      parameters:
+      - description: Provider (google / github)
+        in: path
+        name: provider
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Login akun
+      tags:
+      - autentikasi
+swagger: "2.0"

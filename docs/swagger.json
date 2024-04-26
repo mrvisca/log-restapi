@@ -1,0 +1,44 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Dokumentasi Layanan API untuk monitor log aktivitas",
+        "title": "Service API Documentation",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support (Mr.Visca)",
+            "url": "https://resume.mrvisca.tech",
+            "email": "bimaputra@mrvisca.tech"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1/",
+    "paths": {
+        "/auth/github": {
+            "get": {
+                "description": "Redirect ke halaman github.com / google.com untuk autentitakasi dengan akun github / google",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "autentikasi"
+                ],
+                "summary": "Login akun",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Provider (google / github)",
+                        "name": "provider",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    }
+}

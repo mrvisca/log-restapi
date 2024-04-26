@@ -2,19 +2,36 @@ package main
 
 import (
 	"log-restapi/config"
+	_ "log-restapi/docs"
 	"log-restapi/middleware"
 	"log-restapi/routes"
 
 	"github.com/gin-gonic/gin"
 	"github.com/subosito/gotenv"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
+// @title Service API Documentation
+// @version 1.0
+// @description Dokumentasi Layanan API untuk monitor log aktivitas
+// @termsOfService  http://swagger.io/terms/
+
+// @contact.name   API Support (Mr.Visca)
+// @contact.url    https://resume.mrvisca.tech
+// @contact.email  bimaputra@mrvisca.tech
+
+// @host	localhost:8080
+// @basePath /api/v1/
 func main() {
 	config.InitDB()
 	defer config.DB.Close()
 	gotenv.Load()
 
 	router := gin.Default()
+
+	// Tambahkan route dokumentasi swagger
+	router.GET("docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	v1 := router.Group("/api/v1/")
 	{
