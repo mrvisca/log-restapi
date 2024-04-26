@@ -22,6 +22,14 @@ func CheckToken(c *gin.Context) {
 	})
 }
 
+// Login godoc
+// @Summary	Login akun
+// @Description	Redirect ke halaman github.com / google.com untuk autentitakasi dengan akun github / google
+// @Tags autentikasi
+// @Param provider path string true "Provider (google / github)"
+// @Produce	application/json
+// @Success	200
+// @Router /auth/github [get]
 func RedirectHandler(c *gin.Context) {
 	provider := c.Param("provider")
 
